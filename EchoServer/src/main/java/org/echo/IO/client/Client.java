@@ -1,5 +1,6 @@
 package org.echo.IO.client;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -38,7 +39,7 @@ public class Client {
             System.out.println("Please enter a message.");
            while (client.isConnected()){
                //Reads and sends a message to the server.
-               String message = reader.readLine();
+               String message = BoundedLineReader.readLine(reader, 5_000_000);
                if (message.equalsIgnoreCase("stop")) break;
                byte[] data = message.getBytes(StandardCharsets.UTF_8);
                ByteBuffer buffer = ByteBuffer.allocateDirect(data.length);
